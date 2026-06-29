@@ -1,0 +1,32 @@
+export const theme = {
+  colors: {
+    appBg: '#03153A',
+    canvasBg: '#041E58',
+    panelBg: '#020a1a',
+    panelBorder: 'rgba(148, 163, 184, 0.18)',
+    panelBorderStrong: 'rgba(148, 163, 184, 0.28)',
+    gridDot: '#394b5f',
+    textPrimary: '#f1f5f9',
+    textSecondary: '#94a3b8',
+    textMuted: '#64748b',
+    nodeBody: '#1A2639',
+    nodeBorder: '#2C3E50',
+    accent: '#3b82f6',
+    accentGlow: 'rgba(59, 130, 246, 0.35)',
+    success: '#22c55e',
+    danger: '#ef4444',
+    edge: '#5b8def',
+  },
+  radii: {
+    sm: '6px',
+    md: '10px',
+    lg: '14px',
+    pill: '999px',
+  },
+  shadows: {
+    panel: '0 8px 32px rgba(0, 0, 0, 0.45)',
+    node: '0 4px 16px rgba(0, 0, 0, 0.35)',
+    button: '0 4px 20px rgba(59, 130, 246, 0.25)',
+    buttonHover: '0 8px 28px rgba(59, 130, 246, 0.4)',
+  },
+};
