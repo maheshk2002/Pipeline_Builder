@@ -6,33 +6,35 @@
 
 A production-ready, full-stack visual programming interface designed for constructing and executing complex data workflows, API integrations, and Large Language Model (LLM) pipelines. 
 
-This application decouples the visual interface from the domain logic through a centralized theming engine and node registry, allowing the system to scale to hundreds of node types without layout fracturing.
+This application decouples the visual interface from the domain logic through a centralized theming engine and custom Node Registry. This architectural decision ensures the system can scale to hundreds of custom node types without layout fracturing or CSS conflicts.
+
+---
 
 ## 🏗️ System Architecture
 
 The application is split into two distinct, highly optimized environments:
 
-### 1. Frontend (React + Zustand + React Flow)
-* **Zero Prop-Drilling:** Global canvas state is managed entirely via Zustand, ensuring sub-millisecond edge rendering and real-time validation without re-rendering the outer component shell.
-* **Dynamic DOM Manipulation:** The custom `Text Prompt` node features an internal Regex parser that actively calculates DOM scroll width and height. It auto-resizes the component and dynamically spawns connection magnets in real-time based on `{{variable}}` declarations, all without breaking CSS grid constraints.
-* **Custom Interaction Layer:** Bypassed default React Flow mechanics to engineer a custom `PipelineEdge` component with wide hit-areas and a 120ms debounce for reliable, flicker-free connection deletion. Includes a custom-built SVG minimap that tracks glowing connection paths.
+### 1. Frontend Engine (React + Zustand + React Flow)
+* **Zero Prop-Drilling:** Global canvas state is managed entirely via Zustand. This ensures sub-millisecond edge rendering and real-time graph validation without forcing the outer UI shell to re-render.
+* **Dynamic DOM Manipulation:** The custom `Text Prompt` node features an internal Regex parser that actively calculates DOM scroll width and height. It auto-resizes the component and dynamically spawns connection magnets in real-time based on `{{variable}}` declarations, avoiding rigid CSS constraints.
+* **Custom Interaction Layer:** Bypassed default React Flow mechanics to engineer a custom `PipelineEdge` component with wide hit-areas and a 120ms debounce for reliable, flicker-free connection deletion. Includes a custom SVG minimap that actively tracks and renders glowing connection paths.
 
-### 2. Backend (Python + FastAPI)
-* **Graph Validation:** The backend endpoint (`/pipelines/parse`) receives the serialized graph state and executes mathematical validation.
-* **DAG Enforcement:** It analyzes the payload for cyclical dependencies, ensuring the pipeline forms a valid Directed Acyclic Graph (DAG) before execution is permitted, returning structured statistical data to the frontend toast notification system.
+### 2. Backend Engine (Python + FastAPI)
+* **Mathematical Graph Validation:** The backend endpoint (`/pipelines/parse`) receives the serialized graph state and executes structural validation.
+* **DAG Enforcement:** The API analyzes the node-edge payload for cyclical dependencies, ensuring the pipeline forms a valid Directed Acyclic Graph (DAG) before execution is permitted. It returns structured statistical data back to the frontend's toast notification system.
 
 ---
 
-## 💡 Real-World Use Case: Automated Concession Abuse Investigation
+## 💡 Real-World Showcase: Concession Abuse Investigation
 
-To demonstrate the extensibility of the custom node architecture, this system was engineered to handle complex operations like automated customer investigations. 
+To demonstrate the extensibility of the custom node architecture, this system was built to handle complex, enterprise-level operations, such as automating investigations into e-commerce delivery fraud.
 
-**The Workflow:**
-1. **Ingestion & Cleaning:** The flow ingests raw delivery logs (`Input Node`) and deduplicates the records (`Data Filter Node`).
-2. **Enrichment:** It fetches driver GPS telemetry for disputed orders (`API Request Node`).
-3. **Dynamic Prompting:** The structured variables are passed through the dynamically resizing Regex parser (`Text Prompt Node`). 
-4. **AI Processing:** The `LLM Node` evaluates the telemetry against the customer claim to detect refund fraud.
-5. **Branching & Visualization:** High-risk clusters are routed to a visualization UI (`Dashboard Node`), while legitimate claims are routed to standard processing (`Output Node`) via branching logic (`Condition Node`).
+**The Example Workflow:**
+1. **Ingestion & Cleaning:** Ingests raw delivery logs (`Input Node`) and deduplicates the records (`Data Filter Node`).
+2. **Enrichment:** Fetches actual driver GPS telemetry for disputed orders (`API Request Node`).
+3. **Dynamic Prompting:** Passes the structured data through the dynamically resizing Regex parser (`Text Prompt Node`). 
+4. **AI Processing:** The `LLM Node` evaluates the telemetry against the customer claim to detect refund fraud probability.
+5. **Branching & Routing:** High-risk anomaly clusters are routed to a visualization UI (`Dashboard Node`), while legitimate claims are routed to standard batch processing (`Output Node`) via branching logic (`Condition Node`).
 
 ---
 
@@ -40,10 +42,43 @@ To demonstrate the extensibility of the custom node architecture, this system wa
 
 This project requires both the Python backend and React frontend to be running concurrently.
 
-### Start the Backend API
-The backend runs on FastAPI and must be hosted on `localhost:8000`.
+### 1. Start the Backend API
+The backend requires FastAPI and must be hosted on `localhost:8000`.
 
 ```bash
 cd backend
 pip install fastapi uvicorn python-multipart
 python -m uvicorn main:app --reload
+```
+
+### 2. Start the Frontend Client
+Open a new terminal window to spin up the React application.
+
+```bash
+cd frontend
+npm install
+npm start
+```
+The application will automatically launch in your browser at `http://localhost:3000`.
+
+---
+
+## 🛠️ Technical Stack & Tooling
+
+| Category | Technologies Used |
+| :--- | :--- |
+| **Core Frameworks** | React 18, Python 3.10+, FastAPI |
+| **State Management** | Zustand (Global), React Hooks (Local) |
+| **Canvas Engine** | React Flow (Customized nodes, edges, and SVG minimap) |
+| **Styling** | Centralized CSS Modules, Custom Theming Engine |
+| **Development** | Cursor IDE, Git |
+
+---
+
+## 👨‍💻 About the Author
+
+**Mahesh Katula** *Data Analyst & Journalist | Navi Mumbai, India*
+
+Engineered with a focus on solving complex logistical and operational challenges through clean, scalable system design.
+
+* [LinkedIn Profile](https://www.linkedin.com/in/mahesh-katula-mk777/)
